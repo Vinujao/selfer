@@ -1,0 +1,29 @@
+var SpeechRecognition=window.webkitSpeechRecognition
+var recognition=new SpeechRecognition()
+function start(){
+    document.getElementById("textbox").innerHTML=""
+    recognition.start()
+}
+recognition.onresult=function(event){
+    console.log(event)
+    output=event.results[0][0].transcript
+    document.getElementById("textbox").innerHTML=output
+    if (output=="take my selfie") {
+        speak()  
+    }
+   
+}
+
+function speak(){
+    var speechapi=window.speechSynthesis
+    speechdata="Say cheese as we are taking your selfie in 5 seconds"
+    utterthis=new SpeechSynthesisUtterance(speechdata)
+    speechapi.speak(utterthis) 
+    Webcam.attach("#camera")
+}
+Webcam.set({
+    width:360,
+    height:250,
+    image_format:"png",
+    png_quality:90
+});
