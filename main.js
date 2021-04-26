@@ -20,6 +20,10 @@ function speak(){
     utterthis=new SpeechSynthesisUtterance(speechdata)
     speechapi.speak(utterthis) 
     Webcam.attach("#camera")
+    setTimeout(() => {
+        snapshot()
+        save()
+    }, 5000);
 }
 Webcam.set({
     width:360,
@@ -27,3 +31,23 @@ Webcam.set({
     image_format:"png",
     png_quality:90
 });
+
+
+
+function snapshot(){
+    Webcam.snap(
+        function(selfie){
+            document.getElementById("result").innerHTML=`<img src=${selfie} id="capture_img">`
+        }
+    )
+}
+
+
+
+
+function save(){
+    link=document.getElementById("link")
+    img=document.getElementById("capture_img").src 
+    link.href=img
+    link.click()
+}
